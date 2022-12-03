@@ -478,7 +478,7 @@
     }) */
 
     function retrieveData(data) {
-        console.log(data);
+        console.log("data received from CSV", data);
 
         // set song title based on first line of spreadsheet
         songTitle = data[0][0];
@@ -490,7 +490,7 @@
         console.log("first beat", firstBeat);
 
         var instrumentLayers = data.splice(6, 13);
-        console.log(instrumentLayers);
+        console.log("song with headers removed", instrumentLayers);
         let j = 0;
         for (j = 0; j < instrumentLayers.length; j++) {
             instrumentLayers[j].splice(0, firstBeat);
@@ -518,10 +518,20 @@
                 }
             }
         }
-        console.log(instrumentLayers);
+        console.log("song true and false", instrumentLayers);
+        var songTwo = [];
 
+        var verses = instrumentLayers[0].length / 16;
+        console.log(verses);
+        let m = 0;
+        for (m = 0; m < instrumentLayers[0].length; m++) {
 
-
+        }
+        let l = 0;
+        for (l = 0; l < instrumentLayers[0].length; l++) {
+            var arrayColumn = (arr, n) => arr.map(x => x[n]);
+            console.log(arrayColumn(instrumentLayers, l));
+        }
     }
 
     function parseData(url, callBack) {
@@ -542,7 +552,7 @@
 
 
 
-    console.log(song);
+    console.log("song retrieved from JSON", song);
 
 
     var verseDropdown = document.getElementById("verseDropdown");
