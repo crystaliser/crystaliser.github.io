@@ -428,7 +428,7 @@
 
 
     var song = [];
-    var songTitle = "Voodoo Ray";
+    var songTitle;
 
 
     song[0] = [];
@@ -472,10 +472,69 @@
 
     var file = "https://crystaliser.github.io/voodoo-ray.csv";
 
-    var songParsed = Papa.parse(file, {
+    /* var songParsed = Papa.parse(file, {
         download: true,
         // rest of config ...
-    })
+    }) */
+
+    function retrieveData(data) {
+        console.log(data);
+
+        // set song title based on first line of spreadsheet
+        songTitle = data[0][0];
+        document.getElementById("title").innerHTML = songTitle;
+        document.title = songTitle;
+
+
+        var firstBeat = data[4].indexOf(1);
+        console.log("first beat", firstBeat);
+
+        var instrumentLayers = data.splice(6, 13);
+        console.log(instrumentLayers);
+        let j = 0;
+        for (j = 0; j < instrumentLayers.length; j++) {
+            instrumentLayers[j].splice(0, firstBeat);
+            let k = 0;
+            for (k = 0; k < instrumentLayers[j].length; k++) {
+                if (instrumentLayers[j][k] === null) {
+                    instrumentLayers[j][k] = false;
+
+                }
+                if (instrumentLayers[j][k] === 0) {
+                    instrumentLayers[j][k] = true;
+
+                }
+                if (instrumentLayers[j][k] === 'O') {
+                    instrumentLayers[j][k] = true;
+
+                }
+                if (instrumentLayers[j][k] === 'X') {
+                    instrumentLayers[j][k] = true;
+
+                }
+                if (instrumentLayers[j][k] === '.') {
+                    instrumentLayers[j][k] = true;
+
+                }
+            }
+        }
+        console.log(instrumentLayers);
+
+
+
+    }
+
+    function parseData(url, callBack) {
+        Papa.parse(url, {
+            download: true,
+            dynamicTyping: true,
+            complete: function (results) {
+                callBack(results.data);
+            }
+        });
+    }
+
+    parseData(file, retrieveData);
 
 
 
@@ -483,9 +542,6 @@
 
 
 
-
-    document.getElementById("title").innerHTML = songTitle;
-    document.title = songTitle;
     console.log(song);
 
 
