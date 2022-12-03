@@ -24,67 +24,67 @@
                 .laugh {
                     fill: #006837;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .crumpling {
                     fill: #009245;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .shout {
                     fill: #39B54A;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .echo {
                     fill: #8CC63F;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .beep {
                     fill: #D9E021;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .steel {
                     fill: #FCEE21;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .tone {
                     fill: #ED1C24;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .hey {
                     fill: #F15A24;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .ooh {
                     fill: #FBB03B;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .click {
                     fill: #F7931E;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
 
                 .beat {
                     fill: #C1272D;
                     stroke: #FFFFFF;
-                    stroke-width: 0.5;
+                    stroke-width: 0;
                 }
             </style>
             <g>
@@ -470,11 +470,12 @@
 
     // parse csv
 
-    var file = "voodoo-ray.csv";
-    var songParsed = Papa.parse(file);
+    var file = "https://crystaliser.github.io/voodoo-ray.csv";
 
-    console.log(songParsed);
-
+    var songParsed = Papa.parse(file, {
+        download: true,
+        // rest of config ...
+    })
 
 
 
