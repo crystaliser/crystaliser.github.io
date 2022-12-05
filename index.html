@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
     <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/xms5dbf.css">
 </head>
 
 <body>
@@ -22,67 +23,67 @@
             xml:space="preserve">
             <style type="text/css">
                 .laugh {
-                    fill: #006837;
+                    fill: var(--laughColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .crumpling {
-                    fill: #009245;
+                    fill: var(--crumplingColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .shout {
-                    fill: #39B54A;
+                    fill: var(--shoutColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .echo {
-                    fill: #8CC63F;
+                    fill: var(--echoColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .beep {
-                    fill: #D9E021;
+                    fill: var(--beepColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .steel {
-                    fill: #FCEE21;
+                    fill: var(--steelColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .tone {
-                    fill: #ED1C24;
+                    fill: var(--toneColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .hey {
-                    fill: #F15A24;
+                    fill: var(--heyColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .ooh {
-                    fill: #FBB03B;
+                    fill: var(--oohColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .click {
-                    fill: #F7931E;
+                    fill: var(--clickColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
 
                 .beat {
-                    fill: #C1272D;
+                    fill: var(--beatColour);
                     stroke: #FFFFFF;
                     stroke-width: 0;
                 }
@@ -290,21 +291,110 @@
                 </g>
             </g>
         </svg>
-        <section class="titleArea"><span id="title">&nbsp;</span></section>
+        <section class="titleArea"><span id="title">&nbsp;</span><span id="musician">&nbsp;</span></section>
         <section class="toolsArea"><button id="downloadButton" type="button" onClick="download()"><img
                     src="download.svg" alt="Download">
-            </button>
+            </button><button id="playButton" type="button" onClick="play();"><img src="play.svg"
+                    alt="Play"></button><button id="stopButton" type="button" onClick="stop()"><img src="stop.svg"
+                    alt="Stop"></button>
         </section>
         <section class="verseArea"><label for="verse">Verse</label><select name="verse" id="verseDropdown">
-
-
             </select>
         </section>
+        <section class="sidebar">
+            <button id="sidebarCloseButton" type="button" onClick="closeSidebar();"><img src="close.svg"
+                    alt="Close sidebar">
 
+            </button>
+            <h1>What's this then?</h1>
+            <p>This tool generates a graphical score for <span id="songTitleSidebar">&nbsp;</span> by <span
+                    id="musicianSidebar">&nbsp;</span> based on values taken from a spreadsheet.</p>
+            <h1>What's with all the diamonds?</h1>
+            <p>The song is made up of <span id="numberOfVerses">&nbsp;</span> verses, each with 16 beats and a
+                <sup>4</sup>&frasl;<sub>4</sub> time
+                signature. Each spoke of the diamond is one beat. Each of the diamond's concentric layers represents a
+                different instrument, and at any point in the song where it is being played, the corresponding part of
+                the diamond is illuminated.
+            </p>
+            <h1>What do the colours mean?</h1>
+            <table id="coloursTable">
+
+                <tbody>
+                    <tr>
+                        <td style="background-color:var(--beatColour)">&nbsp;</td>
+                        <td>Beat</td>
+                        <td style="background-color:var(--beepColour)">&nbsp;</td>
+                        <td>Beep</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:var(--toneColour)">&nbsp;</td>
+                        <td>Tone</td>
+                        <td style="background-color:var(--echoColour)">&nbsp;</td>
+                        <td>Echo</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:var(--heyColour)">&nbsp;</td>
+                        <td>Hey</td>
+                        <td style="background-color:var(--shoutColour)">&nbsp;</td>
+                        <td>Shout</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:var(--clickColour)">&nbsp;</td>
+                        <td>Click</td>
+                        <td style="background-color:var(--crumplingColour)">&nbsp;</td>
+                        <td>Crumpling</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:var(--oohColour)">&nbsp;</td>
+                        <td>Ooh</td>
+                        <td style="background-color:var(--laughColour)">&nbsp;</td>
+                        <td>Laugh</td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="background-color:var(--steelColour)">&nbsp;</td>
+                        <td>Steel</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <h1>How do I use it?</h1>
+            <p>You can use the dropdown menu bottom right to view each of the song's verses.</p>
+            <p>Alternatively, you can press the play button bottom left and the diamonds will change in time with the
+                music. Press the stop button to pause the music and animation.</p>
+            <p>You can download each frame as an SVG using the download button bottom left.</p>
+            <h1>Who is responsible for it?</h1>
+            <p>This tool was made by <a href="https://bradleysans.uk">Bradley Sansom</a> in response to the VC1
+                Disruption unit at Manchester School of Art</p>
+            <p>Website &copy; Bradley Sansom, 2022</p>
+            <p>Song &copy; A Guy Called Gerald / Rham Records, 1988. Replicated here for purposes of education and
+                research.</p>
+        </section>
+        <section class="sidebarControls"><button id="sidebarOpenButton" type="button" onClick="openSidebar();"><img
+                    src="info.svg" alt="Information"></button>
+
+        </section>
 
     </main>
 </body>
 <style>
+    :root {
+        --beatColour: #C1272D;
+        --clickColour: #F7931E;
+        --oohColour: #FBB03B;
+        --heyColour: #F15A24;
+        --toneColour: #ED1C24;
+        --steelColour: #FCEE21;
+        --beepColour: #D9E021;
+        --echoColour: #8CC63F;
+        --shoutColour: #39B54A;
+        --crumplingColour: #009245;
+        --laughColour: #006837;
+
+    }
+
+
     @keyframes flash {
         0% {
             opacity: 0;
@@ -325,10 +415,22 @@
         }
     }
 
-    /* main svg .beat {
-        animation: flash .5s backwards;
+    @keyframes appear {
+        0% {
+            filter: opacity(0);
+        }
+
+        1% {
+            filter: opacity(1);
+        }
+    }
+
+    main svg .beat.animated {
+        animation: appear .5s backwards;
         animation-delay: calc(.5s + (500ms * var(---beatsitem-index)));
     }
+
+    /*
 
     main svg .one {
         animation: flash 1s backwards;
@@ -347,6 +449,8 @@
         border: 0;
         background: #222222;
         color: white;
+
+        overflow: hidden;
     }
 
     main {
@@ -355,6 +459,7 @@
         justify-content: center;
         height: 100vh;
         width: 100%;
+
     }
 
     main svg {
@@ -363,13 +468,34 @@
 
     }
 
-    #title {
+    .titleArea {
         position: absolute;
-        top: 20px;
         left: 20px;
-        font-family: sans-serif;
+        top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #title {
+
+        font-family: aktiv-grotesk-extended, sans-serif;
+
+        font-weight: 500;
+
+        font-style: normal;
         font-size: 2rem;
     }
+
+    #musician {
+        font-family: aktiv-grotesk, sans-serif;
+
+        font-weight: 400;
+
+        font-style: normal;
+        font-size: 1rem;
+    }
+
 
     .beat,
     .tone,
@@ -392,9 +518,12 @@
     }
 
     .verseArea label {
-        font-size: 2rem;
+        font-family: aktiv-grotesk-extended, sans-serif;
 
-        font-family: sans-serif;
+        font-weight: 500;
+
+        font-style: normal;
+        font-size: 1.5rem;
     }
 
     .verseArea select {
@@ -402,10 +531,14 @@
         color: #fff;
         padding: 5px 30px;
         text-align: center;
-        font-size: 2rem;
         outline: 0;
         border: 0;
-        font-family: sans-serif;
+        font-family: aktiv-grotesk-extended, sans-serif;
+
+        font-weight: 500;
+
+        font-style: normal;
+        font-size: 1.5rem;
 
     }
 
@@ -427,14 +560,98 @@
         color: #fff;
     }
 
-    #downloadButton {
+    button {
         background-color: #222;
         outline: 0;
         border: 0;
     }
 
-    #downloadButton img {
+    button img {
         max-height: 2rem;
+    }
+
+    #stopButton {
+        display: none;
+    }
+
+    .sidebar {
+        position: absolute;
+        right: -440px;
+        top: 0;
+        height: calc(100vh - 40px);
+        width: 400px;
+        max-width: 70vw;
+        background-color: #222;
+        border-left: 1px solid #666;
+        transition: .5s;
+        z-index: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        overflow-y: scroll;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+        background-color: #222;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+
+        background-color: #666;
+    }
+
+    .sidebarControls {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 0;
+    }
+
+    .sidebar button {
+        align-self: flex-end;
+    }
+
+    .sidebar h1 {
+        align-self: flex-start;
+        font-family: aktiv-grotesk-extended, sans-serif;
+
+        font-weight: 500;
+
+        font-style: normal;
+        margin-block-end: 5px;
+    }
+
+    .sidebar p {
+        font-family: aktiv-grotesk, sans-serif;
+
+        font-weight: 400;
+
+        font-style: normal;
+    }
+
+    .sidebar table td {
+        font-family: aktiv-grotesk-extended, sans-serif;
+
+        font-weight: 500;
+
+        font-style: normal;
+    }
+
+    .sidebar a {
+        color: white;
+    }
+
+    #coloursTable {
+        width: 100%;
+    }
+
+    #coloursTable td {
+        padding: 5px;
     }
 </style>
 <script src="papaparse.js"></script>
@@ -463,7 +680,11 @@
 
     // song
     var song = [];
+    var songTwo = [];
     var songTitle;
+    var musician;
+
+    localStorage.setItem("currentVerse", 0);
 
     /* // Backup arrays
         song[0] = [];
@@ -512,7 +733,12 @@
         // set song title based on first line of spreadsheet
         songTitle = data[0][0];
         document.getElementById("title").innerHTML = songTitle;
+        document.getElementById("songTitleSidebar").innerHTML = songTitle;
         document.title = songTitle;
+
+        musician = data[1][0];
+        document.getElementById("musician").innerHTML = musician;
+        document.getElementById("musicianSidebar").innerHTML = musician;
 
         // set first beat based on first column with beat
         var firstBeat = data[4].indexOf(1);
@@ -556,9 +782,9 @@
         console.log("song true and false", instrumentLayers);
 
         // set up new song array
-        var songTwo = [];
         var beatsPerVerse = 16;
         var verses = instrumentLayers[0].length / beatsPerVerse;
+        document.getElementById("numberOfVerses").innerHTML = verses;
         console.log("number of verses", verses);
 
         // fill new song array with values from instruments arrays
@@ -613,139 +839,6 @@
 
 
 
-        function crystaliseBeat(currentVerse, currentBeat, i) {
-            currentVerse = verseDropdown.value;
-
-            var beating = false;
-            var tones = false;
-            var heys = false;
-            var clicks = false;
-            var oohs = false;
-            var steels = false;
-            var beeps = false;
-            var echoes = false;
-            var shouts = false;
-            var crumplings = false;
-            var laughs = false;
-
-            var beatingBox;
-            var tonesBox;
-            var heysBox;
-            var clicksBox;
-            var oohsBox;
-            var steelsBox;
-            var beepsBox;
-            var echoesBox;
-            var shoutsBox;
-            var crumplingsBox;
-            var laughsBox;
-
-            currentSpine = i;
-            if (currentSpine === 0) {
-                currentSpine = "one"
-            } if (currentSpine === 1) {
-                currentSpine = "two"
-            } if (currentSpine === 2) {
-                currentSpine = "three"
-            } if (currentSpine === 3) {
-                currentSpine = "four"
-            } if (currentSpine === 4) {
-                currentSpine = "five"
-            } if (currentSpine === 5) {
-                currentSpine = "six"
-            } if (currentSpine === 6) {
-                currentSpine = "seven"
-            } if (currentSpine === 7) {
-                currentSpine = "eight"
-            } if (currentSpine === 8) {
-                currentSpine = "nine"
-            } if (currentSpine === 9) {
-                currentSpine = "ten"
-            } if (currentSpine === 10) {
-                currentSpine = "eleven"
-            } if (currentSpine === 11) {
-                currentSpine = "twelve"
-            } if (currentSpine === 12) {
-                currentSpine = "thirteen"
-            } if (currentSpine === 13) {
-                currentSpine = "fourteen"
-            } if (currentSpine === 14) {
-                currentSpine = "fifteen"
-            } if (currentSpine === 15) {
-                currentSpine = "sixteen"
-            }
-            beatingBox = document.querySelector('polygon.beat.' + currentSpine);
-            beatingBox.style.opacity = 0
-            tonesBox = document.querySelector('polygon.tone.' + currentSpine);
-            tonesBox.style.opacity = 0;
-            heysBox = document.querySelector('polygon.hey.' + currentSpine);
-            heysBox.style.opacity = 0;
-            clicksBox = document.querySelector('polygon.click.' + currentSpine);
-            clicksBox.style.opacity = 0;
-            oohsBox = document.querySelector('polygon.ooh.' + currentSpine);
-            oohsBox.style.opacity = 0;
-            steelsBox = document.querySelector('polygon.steel.' + currentSpine);
-            steelsBox.style.opacity = 0;
-            beepsBox = document.querySelector('polygon.beep.' + currentSpine);
-            beepsBox.style.opacity = 0;
-            echoesBox = document.querySelector('polygon.echo.' + currentSpine);
-            echoesBox.style.opacity = 0;
-            shoutsBox = document.querySelector('polygon.shout.' + currentSpine);
-            shoutsBox.style.opacity = 0;
-            crumplingsBox = document.querySelector('polygon.crumpling.' + currentSpine);
-            crumplingsBox.style.opacity = 0;
-            laughsBox = document.querySelector('polygon.laugh.' + currentSpine);
-            laughsBox.style.opacity = 0;
-
-            if (currentBeat[0] === true) {
-                beating = true;
-                beatingBox.style.opacity = 1;
-            }
-            if (currentBeat[1] === true) {
-                tones = true;
-
-                tonesBox.style.opacity = 1;
-            }
-            if (currentBeat[2] === true) {
-                heys = true;
-                heysBox.style.opacity = 1;
-            }
-            if (currentBeat[3] === true) {
-                clicks = true;
-                clicksBox.style.opacity = 1;
-            }
-            if (currentBeat[4] === true) {
-                oohs = true;
-                oohsBox.style.opacity = 1;
-            }
-            if (currentBeat[5] === true) {
-                steels = true
-                steelsBox.style.opacity = 1;
-            }
-            if (currentBeat[6] === true) {
-                beeps = true;
-                beepsBox.style.opacity = 1;
-            }
-            if (currentBeat[7] === true) {
-                echoes = true;
-                echoesBox.style.opacity = 1;
-            }
-            if (currentBeat[8] === true) {
-                shouts = true;
-                shoutsBox.style.opacity = 1;
-            }
-            if (currentBeat[9] === true) {
-                crumplings = true;
-                crumplingsBox.style.opacity = 1;
-            }
-            if (currentBeat[10] === true) {
-                laughs = true;
-                laughsBox.style.opacity = 1;
-            }
-            console.log("verse", currentVerse, "spine", currentSpine, "beating", beating, "tones", tones, "heys", heys, "clicks", clicks, "oohs", oohs, "steels", steels, "beeps", beeps, "echoes", echoes, "shouts", shouts, "crumplings", crumplings, "laughs", laughs);
-
-
-        }
         verseDropdown.addEventListener('change', (event) => {
             currentVerse = verseDropdown.value;
             console.log("NEW VERSE", currentVerse);
@@ -757,12 +850,12 @@
             }
         });
 
-
+        localStorage.setItem("songTwo", songTwo);
 
 
     }
 
-    function parseData(url, callBack) {
+    function parseData(url, callBack, startFrom) {
         Papa.parse(url, {
             download: true,
             dynamicTyping: true,
@@ -772,8 +865,142 @@
         });
     }
 
-    parseData(file, retrieveData);
+    parseData(file, retrieveData, 0);
 
+    function crystaliseBeat(currentVerse, currentBeat, i) {
+        currentVerse = verseDropdown.value;
+
+        var beating = false;
+        var tones = false;
+        var heys = false;
+        var clicks = false;
+        var oohs = false;
+        var steels = false;
+        var beeps = false;
+        var echoes = false;
+        var shouts = false;
+        var crumplings = false;
+        var laughs = false;
+
+        var beatingBox;
+        var tonesBox;
+        var heysBox;
+        var clicksBox;
+        var oohsBox;
+        var steelsBox;
+        var beepsBox;
+        var echoesBox;
+        var shoutsBox;
+        var crumplingsBox;
+        var laughsBox;
+
+        currentSpine = i;
+        if (currentSpine === 0) {
+            currentSpine = "one"
+        } if (currentSpine === 1) {
+            currentSpine = "two"
+        } if (currentSpine === 2) {
+            currentSpine = "three"
+        } if (currentSpine === 3) {
+            currentSpine = "four"
+        } if (currentSpine === 4) {
+            currentSpine = "five"
+        } if (currentSpine === 5) {
+            currentSpine = "six"
+        } if (currentSpine === 6) {
+            currentSpine = "seven"
+        } if (currentSpine === 7) {
+            currentSpine = "eight"
+        } if (currentSpine === 8) {
+            currentSpine = "nine"
+        } if (currentSpine === 9) {
+            currentSpine = "ten"
+        } if (currentSpine === 10) {
+            currentSpine = "eleven"
+        } if (currentSpine === 11) {
+            currentSpine = "twelve"
+        } if (currentSpine === 12) {
+            currentSpine = "thirteen"
+        } if (currentSpine === 13) {
+            currentSpine = "fourteen"
+        } if (currentSpine === 14) {
+            currentSpine = "fifteen"
+        } if (currentSpine === 15) {
+            currentSpine = "sixteen"
+        }
+        beatingBox = document.querySelector('polygon.beat.' + currentSpine);
+        beatingBox.style.opacity = 0
+        tonesBox = document.querySelector('polygon.tone.' + currentSpine);
+        tonesBox.style.opacity = 0;
+        heysBox = document.querySelector('polygon.hey.' + currentSpine);
+        heysBox.style.opacity = 0;
+        clicksBox = document.querySelector('polygon.click.' + currentSpine);
+        clicksBox.style.opacity = 0;
+        oohsBox = document.querySelector('polygon.ooh.' + currentSpine);
+        oohsBox.style.opacity = 0;
+        steelsBox = document.querySelector('polygon.steel.' + currentSpine);
+        steelsBox.style.opacity = 0;
+        beepsBox = document.querySelector('polygon.beep.' + currentSpine);
+        beepsBox.style.opacity = 0;
+        echoesBox = document.querySelector('polygon.echo.' + currentSpine);
+        echoesBox.style.opacity = 0;
+        shoutsBox = document.querySelector('polygon.shout.' + currentSpine);
+        shoutsBox.style.opacity = 0;
+        crumplingsBox = document.querySelector('polygon.crumpling.' + currentSpine);
+        crumplingsBox.style.opacity = 0;
+        laughsBox = document.querySelector('polygon.laugh.' + currentSpine);
+        laughsBox.style.opacity = 0;
+
+        if (currentBeat[0] === true) {
+            beating = true;
+            beatingBox.style.opacity = 1;
+        }
+        if (currentBeat[1] === true) {
+            tones = true;
+
+            tonesBox.style.opacity = 1;
+        }
+        if (currentBeat[2] === true) {
+            heys = true;
+            heysBox.style.opacity = 1;
+        }
+        if (currentBeat[3] === true) {
+            clicks = true;
+            clicksBox.style.opacity = 1;
+        }
+        if (currentBeat[4] === true) {
+            oohs = true;
+            oohsBox.style.opacity = 1;
+        }
+        if (currentBeat[5] === true) {
+            steels = true
+            steelsBox.style.opacity = 1;
+        }
+        if (currentBeat[6] === true) {
+            beeps = true;
+            beepsBox.style.opacity = 1;
+        }
+        if (currentBeat[7] === true) {
+            echoes = true;
+            echoesBox.style.opacity = 1;
+        }
+        if (currentBeat[8] === true) {
+            shouts = true;
+            shoutsBox.style.opacity = 1;
+        }
+        if (currentBeat[9] === true) {
+            crumplings = true;
+            crumplingsBox.style.opacity = 1;
+        }
+        if (currentBeat[10] === true) {
+            laughs = true;
+            laughsBox.style.opacity = 1;
+        }
+        console.log("verse", currentVerse, "spine", currentSpine, "beating", beating, "tones", tones, "heys", heys, "clicks", clicks, "oohs", oohs, "steels", steels, "beeps", beeps, "echoes", echoes, "shouts", shouts, "crumplings", crumplings, "laughs", laughs);
+
+
+        localStorage.setItem("currentVerse", currentVerse);
+    }
 
 
 
@@ -793,11 +1020,65 @@
 
 
         var link = document.createElement("a");
-        link.download = name;
+        var verseNumber = parseFloat(localStorage.getItem("currentVerse")) + 1;
+        songTitle = songTitle.replace(" ", "_");
+        link.download = songTitle + "_Verse_" + verseNumber + ".svg";
         link.href = b64;
         link.click();
 
 
+    }
+    var playButton = document.getElementById("playButton");
+    var stopButton = document.getElementById("stopButton");
+
+    var audioTrack = new Audio("song.mp3");
+
+    function play() {
+        currentVerse = 0;
+        verseDropdown.value = 0;
+        console.log("NEW VERSE", currentVerse);
+        let i = 0;
+        for (i = 0; i < songTwo[currentVerse].length; i++) {
+            crystaliseBeat(currentVerse, songTwo[currentVerse][i], i);
+            console.log(currentVerse, i);
+
+        }
+
+        window.setInterval(nextVerse, 8000);
+        function nextVerse(previousVerse) {
+            previousVerse = parseFloat(currentVerse);
+            currentVerse = previousVerse + 1;
+            console.log("playing new verse", currentVerse);
+            verseDropdown.value = currentVerse;
+            let i = 0;
+            for (i = 0; i < songTwo[currentVerse].length; i++) {
+                crystaliseBeat(currentVerse, songTwo[currentVerse][i], i);
+                console.log(currentVerse, i);
+
+            }
+        }
+        playButton.style.display = "none";
+        stopButton.style.display = "initial";
+
+        audioTrack.currentTime = 0;
+        audioTrack.play();
+        document.getElementsByClassName("beat").forEach(classList.add("animated"));
+    }
+    function stop() {
+        console.log("stopping playing")
+        clearInterval(2);
+        console.log("stopped playing");
+        playButton.style.display = "initial";
+        stopButton.style.display = "none";
+        audioTrack.pause();
+    }
+
+    var sidebar = document.getElementsByClassName("sidebar")[0];
+    function openSidebar() {
+        sidebar.style.right = "0";
+    }
+    function closeSidebar() {
+        sidebar.style.right = "-440px";
     }
 
 </script>
