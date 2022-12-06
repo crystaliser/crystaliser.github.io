@@ -1085,7 +1085,16 @@
     var playButton = document.getElementById("playButton");
     var stopButton = document.getElementById("stopButton");
 
-    var audioTrack = new Audio("song.mp3");
+    var audioTrack = new Audio("https://crystaliser.github.io/song.mp3");
+
+    var subtitlesTrack = document.createElement("track");
+    subtitlesTrack.setAttribute("default", "");
+    subtitlesTrack.setAttribute("kind", "captions");
+    subtitlesTrack.setAttribute("srclang", "en");
+    subtitlesTrack.setAttribute("src", "https://crystaliser.github.io/subtitles.vtt");
+
+    console.log("Subtitles", subtitlesTrack);
+    audioTrack.appendChild(subtitlesTrack);
 
     function play() {
         currentVerse = 0;
@@ -1116,7 +1125,8 @@
 
         audioTrack.currentTime = 0;
         audioTrack.play();
-        document.getElementsByClassName("beat").forEach(classList.add("animated"));
+
+        // document.getElementsByClassName("beat").forEach(classList.add("animated"));
     }
     function stop() {
         console.log("stopping playing")
