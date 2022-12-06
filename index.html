@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
     <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
     <link rel="stylesheet" href="https://use.typekit.net/xms5dbf.css">
+
 </head>
 
 <body>
@@ -22,6 +23,21 @@
             x="0px" y="0px" viewBox="0 0 340.6 340.6" style="enable-background:new 0 0 340.6 340.6;"
             xml:space="preserve">
             <style type="text/css">
+                :root {
+                    --beatColour: #C1272D;
+                    --clickColour: #F7931E;
+                    --oohColour: #FBB03B;
+                    --heyColour: #F15A24;
+                    --toneColour: #ED1C24;
+                    --steelColour: #FCEE21;
+                    --beepColour: #D9E021;
+                    --echoColour: #8CC63F;
+                    --shoutColour: #39B54A;
+                    --crumplingColour: #009245;
+                    --laughColour: #006837;
+
+                }
+
                 .laugh {
                     fill: var(--laughColour);
                     stroke: #FFFFFF;
@@ -302,13 +318,15 @@
             </select>
         </section>
         <section class="sidebar">
+
             <button id="sidebarCloseButton" type="button" onClick="closeSidebar();"><img src="close.svg"
                     alt="Close sidebar">
 
             </button>
-            <h1>What's this then?</h1>
+            <h1>What's all this then?</h1>
             <p>This tool generates a graphical score for <span id="songTitleSidebar">&nbsp;</span> by <span
                     id="musicianSidebar">&nbsp;</span> based on values taken from a spreadsheet.</p>
+
             <h1>What's with all the diamonds?</h1>
             <p>The song is made up of <span id="numberOfVerses">&nbsp;</span> verses, each with 16 beats and a
                 <sup>4</sup>&frasl;<sub>4</sub> time
@@ -316,6 +334,7 @@
                 different instrument, and at any point in the song where it is being played, the corresponding part of
                 the diamond is illuminated.
             </p>
+
             <h1>What do the colours mean?</h1>
             <table id="coloursTable">
 
@@ -359,17 +378,44 @@
 
                 </tbody>
             </table>
-            <h1>How do I use it?</h1>
-            <p>You can use the dropdown menu bottom right to view each of the song's verses.</p>
-            <p>Alternatively, you can press the play button bottom left and the diamonds will change in time with the
-                music. Press the stop button to pause the music and animation.</p>
-            <p>You can download each frame as an SVG using the download button bottom left.</p>
+            <h1>I want to sing along &mdash; where are the lyrics?</h1>
+            <p>Your wish <a href="https://genius.com/A-guy-called-gerald-voodoo-ray-lyrics">is my command.</a></p>
+            <h1>How do I work it?</h1>
+            <table id="usageTable">
+                <tbody>
+                    <tr id="usageMenu">
+                        <td>
+                            <p>You can use the dropdown menu bottom right to view each of the song's verses.</p>
+                        </td>
+                        <td class="icon"><img src="dropdown.svg" alt="Play"></td>
+
+                    </tr>
+                    <tr id="usagePlay">
+                        <td>
+                            <p>Alternatively, you can press the play button bottom left and the diamonds will change in
+                                time with the
+                                music. Press the stop button to pause the music and animation.</p>
+                        </td>
+                        <td class="icon"><img src="play.svg" alt="Play"></td>
+
+                    </tr>
+                    <tr id="usageDownload">
+                        <td>
+                            <p>You can download each frame as an SVG using the download button bottom left.</p>
+                        </td>
+                        <td class="icon"><img src="download.svg" alt="Download"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
             <h1>Who is responsible for it?</h1>
             <p>This tool was made by <a href="https://bradleysans.uk">Bradley Sansom</a> in response to the VC1
-                Disruption unit at Manchester School of Art</p>
+                Disruption unit at Manchester School of Art.</p>
             <p>Website &copy; Bradley Sansom, 2022</p>
             <p>Song &copy; A Guy Called Gerald / Rham Records, 1988. Replicated here for purposes of education and
                 research.</p>
+            <hr id="last">
         </section>
         <section class="sidebarControls"><button id="sidebarOpenButton" type="button" onClick="openSidebar();"><img
                     src="info.svg" alt="Information"></button>
@@ -379,22 +425,6 @@
     </main>
 </body>
 <style>
-    :root {
-        --beatColour: #C1272D;
-        --clickColour: #F7931E;
-        --oohColour: #FBB03B;
-        --heyColour: #F15A24;
-        --toneColour: #ED1C24;
-        --steelColour: #FCEE21;
-        --beepColour: #D9E021;
-        --echoColour: #8CC63F;
-        --shoutColour: #39B54A;
-        --crumplingColour: #009245;
-        --laughColour: #006837;
-
-    }
-
-
     @keyframes flash {
         0% {
             opacity: 0;
@@ -623,7 +653,13 @@
         font-weight: 500;
 
         font-style: normal;
-        margin-block-end: 5px;
+        margin-block-start: 1em;
+        margin-block-end: .5em;
+        max-width: 382px;
+    }
+
+    .sidebar h1:nth-of-type(1) {
+        margin-block-start: 0;
     }
 
     .sidebar p {
@@ -632,6 +668,8 @@
         font-weight: 400;
 
         font-style: normal;
+        margin-block: .5em;
+        max-width: 382px;
     }
 
     .sidebar table td {
@@ -648,10 +686,26 @@
 
     #coloursTable {
         width: 100%;
+        margin-bottom: 1em;
     }
 
     #coloursTable td {
         padding: 5px;
+    }
+
+    .sidebar hr {
+        width: calc(100% - 10px);
+        border: 1px solid #666;
+        margin-block: 1em;
+        margin-inline: 0;
+    }
+
+    .sidebar hr#last {
+        margin-bottom: 100px;
+    }
+
+    .sidebar #usageTable .icon {
+        filter: opacity(0.252);
     }
 </style>
 <script src="papaparse.js"></script>
