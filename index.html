@@ -312,7 +312,9 @@
                     src="download.svg" alt="Download">
             </button><button id="playButton" type="button" onClick="play();"><img src="play.svg"
                     alt="Play"></button><button id="stopButton" type="button" onClick="stop()"><img src="stop.svg"
-                    alt="Stop"></button>
+                    alt="Stop"></button><button id="subtitlesButton" type="button" onClick="showSubtitles()"
+                data-state="subtitles"><img src="subtitles.svg" alt="Subtitles">
+            </button>
         </section>
         <section class="verseArea"><label for="verse">Verse</label><select name="verse" id="verseDropdown">
             </select>
@@ -707,6 +709,21 @@
     .sidebar #usageTable .icon {
         filter: opacity(0.252);
     }
+
+    ::cue {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 2rem;
+
+    }
+
+    video {
+        position: absolute;
+        height: 200px;
+        width: 90vw;
+        bottom: 100px;
+    }
 </style>
 <script src="papaparse.js"></script>
 <script>
@@ -1085,7 +1102,13 @@
     var playButton = document.getElementById("playButton");
     var stopButton = document.getElementById("stopButton");
 
-    var audioTrack = new Audio("https://crystaliser.github.io/song.mp3");
+
+    var audioTrack = document.createElement("video");
+
+    var audioSource = document.createElement("source");
+    audioSource.setAttribute("type", "audio/mp3");
+    audioSource.setAttribute("src", "https://crystaliser.github.io/song.mp3")
+    audioTrack.appendChild(audioSource);
 
     var subtitlesTrack = document.createElement("track");
     subtitlesTrack.setAttribute("default", "");
@@ -1093,9 +1116,15 @@
     subtitlesTrack.setAttribute("srclang", "en");
     subtitlesTrack.setAttribute("src", "https://crystaliser.github.io/subtitles.vtt");
 
+    audioTrack.setAttribute("crossorigin", "anonymous");
+    audioTrack.setAttribute("disablePictureInPicture", "true");
+
+
     console.log("Subtitles", subtitlesTrack);
     audioTrack.appendChild(subtitlesTrack);
-
+    console.log("Track", audioTrack);
+    document.getElementsByTagName("main")[0].appendChild(audioTrack);
+    var playingInterval;
     function play() {
         currentVerse = 0;
         verseDropdown.value = 0;
@@ -1107,7 +1136,7 @@
 
         }
 
-        window.setInterval(nextVerse, 8000);
+        playingInterval = window.setInterval(nextVerse, 8000);
         function nextVerse(previousVerse) {
             previousVerse = parseFloat(currentVerse);
             currentVerse = previousVerse + 1;
@@ -1125,16 +1154,18 @@
 
         audioTrack.currentTime = 0;
         audioTrack.play();
+        subtitlesTrack.mode = 'showing';
 
         // document.getElementsByClassName("beat").forEach(classList.add("animated"));
     }
     function stop() {
         console.log("stopping playing")
-        clearInterval(2);
+        clearInterval(playingInterval);
         console.log("stopped playing");
         playButton.style.display = "initial";
         stopButton.style.display = "none";
         audioTrack.pause();
+        subtitlesTrack.mode = 'hidden';
     }
 
     var sidebar = document.getElementsByClassName("sidebar")[0];
@@ -1145,6 +1176,10 @@
         sidebar.style.right = "-440px";
     }
 
+
+    function showSubtitles() {
+
+    }
 </script>
 
 </html>
