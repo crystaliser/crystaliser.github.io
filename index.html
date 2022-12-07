@@ -725,8 +725,19 @@
     video {
         position: absolute;
         height: 200px;
-        width: 90vw;
-        bottom: 100px;
+        width: 60vw;
+        bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+        video {
+            bottom: 60px;
+        }
+    }
+
+    ::cue b.lineHeys {
+        font-weight: 500;
+        color: var(--heyColour);
     }
 </style>
 <script src="papaparse.js"></script>
