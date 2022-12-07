@@ -1151,6 +1151,10 @@
     audioTrack.appendChild(subtitlesTrack);
     console.log("Track", audioTrack);
     document.getElementsByTagName("main")[0].appendChild(audioTrack);
+
+    audioTrack.disableRemotePlayback = true;
+
+
     var playingInterval;
     function play() {
         currentVerse = 0;
@@ -1211,6 +1215,11 @@
 
     function showSubtitles() {
 
+    }
+</script>
+<script>
+    if (navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.register('sw.js');
     }
 </script>
 
