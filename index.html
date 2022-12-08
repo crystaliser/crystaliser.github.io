@@ -441,8 +441,9 @@
         </section>
         <section class="sidebarControls"><button id="sidebarOpenButton" type="button" onClick="openSidebar();"><img
                     src="info.svg" alt="Information"></button>
-
+            <span id="wake"></span>
         </section>
+
 
     </main>
 </body>
@@ -849,7 +850,7 @@
     var file = "https://crystaliser.github.io/voodoo-ray.csv";
 
     function retrieveData(data) {
-        console.log("data received from CSV", data);
+        console.log("Data received from CSV", data);
 
         // set song title based on first line of spreadsheet
         songTitle = data[0][0];
@@ -863,11 +864,11 @@
 
         // set first beat based on first column with beat
         var firstBeat = data[4].indexOf(1);
-        console.log("first beat", firstBeat);
+        console.log("First beat", firstBeat);
 
         // extract layers of song which are instruments and not headers
         var instrumentLayers = data.splice(6, 13);
-        console.log("song with headers removed", instrumentLayers);
+        console.log("Song with headers removed", instrumentLayers);
 
         // sanitises data to be true and falses
         let j = 0;
@@ -900,13 +901,13 @@
                 } */
             }
         }
-        console.log("song true and false", instrumentLayers);
+        console.log("Song true and false", instrumentLayers);
 
         // set up new song array
         var beatsPerVerse = 16;
         var verses = instrumentLayers[0].length / beatsPerVerse;
         document.getElementById("numberOfVerses").innerHTML = verses;
-        console.log("number of verses", verses);
+        console.log("Number of verses", verses);
         localStorage.setItem("verses", verses);
 
         // fill new song array with values from instruments arrays
@@ -915,7 +916,7 @@
             var arrayColumn = (arr, n) => arr.map(x => x[n]);
             songTwo.push(arrayColumn(instrumentLayers, m));
         }
-        console.log("song from csv rotated to fit format", songTwo);
+        console.log("Song from csv rotated to fit format", songTwo);
 
         // split song array into verses
         function sliceIntoChunks(arr, chunkSize) {
@@ -927,7 +928,7 @@
             return res;
         }
         songTwo = sliceIntoChunks(songTwo, beatsPerVerse);
-        console.log("song formatted into verses", songTwo);
+        console.log("Song formatted into verses", songTwo);
 
         // add verses to dropdown menu
         var verseDropdown = document.getElementById("verseDropdown");
@@ -963,7 +964,7 @@
 
         verseDropdown.addEventListener('change', (event) => {
             currentVerse = verseDropdown.value;
-            console.log("NEW VERSE", currentVerse);
+            console.log("New verse", currentVerse);
             let i = 0;
             for (i = 0; i < songTwo[currentVerse].length; i++) {
                 crystaliseBeat(currentVerse, songTwo[currentVerse][i], i);
@@ -1123,7 +1124,7 @@
 
 
 
-    console.log("song retrieved from JSON", song);
+    console.log("Song retrieved from JSON", song);
 
     function download() {
 
@@ -1183,7 +1184,7 @@
     function play() {
         currentVerse = 0;
         verseDropdown.value = 0;
-        console.log("NEW VERSE", currentVerse);
+        console.log("New verse", currentVerse);
         let i = 0;
         for (i = 0; i < songTwo[currentVerse].length; i++) {
             crystaliseBeat(currentVerse, songTwo[currentVerse][i], i);
@@ -1195,7 +1196,7 @@
         function nextVerse(previousVerse) {
             previousVerse = parseFloat(currentVerse);
             currentVerse = previousVerse + 1;
-            console.log("playing new verse", currentVerse);
+            console.log("Playing new verse", currentVerse);
             verseDropdown.value = currentVerse;
             let i = 0;
             for (i = 0; i < songTwo[currentVerse].length; i++) {
@@ -1217,15 +1218,17 @@
         subtitlesOffButton.style.display = "initial";
 
         // document.getElementsByClassName("beat").forEach(classList.add("animated"));
+        keepAwake();
     }
     function stop() {
-        console.log("stopping playing")
+        console.log("Stopping playing")
         clearInterval(playingInterval);
-        console.log("stopped playing");
+        console.log("Stopped playing");
         playButton.style.display = "initial";
         stopButton.style.display = "none";
         audioTrack.pause();
         subtitlesTrack.mode = 'hidden';
+        allowSleep();
     }
 
     var sidebar = document.getElementsByClassName("sidebar")[0];
@@ -1251,6 +1254,32 @@
         subtitlesOnButton.style.display = "initial";
         subtitlesOffButton.style.display = "none";
         console.log("Turned off subtitles");
+    }
+    var statusElem = document.getElementById("wake");
+
+    let wakeLock = null;
+    async function keepAwake() {
+        if ('wakeLock' in navigator) {
+            isSupported = true;
+            console.log('Screen Wake Lock API supported');
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock is active');
+            } catch (err) {
+                console.log(`${err.name}, ${err.message}`);
+            }
+        } else {
+            console.log('Wake lock is not supported by this browser');
+        }
+
+    }
+    async function allowSleep() {
+        wakeLock.release()
+            .then(() => {
+                wakeLock = null;
+                console.log("Releasing wake lock");
+            });
+
     }
 </script>
 <script>
