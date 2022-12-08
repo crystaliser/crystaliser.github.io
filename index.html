@@ -56,7 +56,7 @@
             xml:space="preserve">
             <style type="text/css">
                 :root {
-                    --beatColour: #C1272D;
+                    /* --beatColour: #C1272D;
                     --clickColour: #F7931E;
                     --oohColour: #FBB03B;
                     --heyColour: #F15A24;
@@ -66,24 +66,36 @@
                     --shoutColour: #8CC63F;
                     --crumplingColour: #39B54A;
                     --laughColour: #009245;
+*/
+                    --beatColour: #00e0bb;
+                    --clickColour: #26eaa4;
+                    --toneColour: #7bf49a;
+                    --steelColour: #dbfb73;
+                    --beepColour: #f7fe38;
+                    --crumplingColour: #f7ff00;
+
+                    --oohColour: #fd0cc9;
+                    --heyColour: #b609d3;
+                    --shoutColour: #8007dc;
+                    --laughColour: #4c03ec;
 
                 }
 
                 .laugh {
                     fill: var(--laughColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .crumpling {
                     fill: var(--crumplingColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .shout {
                     fill: var(--shoutColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
@@ -91,43 +103,43 @@
 
                 .beep {
                     fill: var(--beepColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .steel {
                     fill: var(--steelColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .tone {
                     fill: var(--toneColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .hey {
                     fill: var(--heyColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .ooh {
                     fill: var(--oohColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .click {
                     fill: var(--clickColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
 
                 .beat {
                     fill: var(--beatColour);
-                    stroke: #FFFFFF;
+                    stroke: #222;
                     stroke-width: 0;
                 }
             </style>
@@ -543,7 +555,7 @@
         font-weight: 500;
 
         font-style: normal;
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     #musician {
@@ -552,7 +564,7 @@
         font-weight: 400;
 
         font-style: normal;
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
 
@@ -569,7 +581,7 @@
     .laugh {
         opacity: 0;
         transition: .25s;
-        cursor: none;
+
     }
 
     .verseArea {
@@ -625,6 +637,7 @@
         background-color: #222;
         outline: 0;
         border: 0;
+        transition: .5s;
     }
 
     button img {
@@ -1132,6 +1145,10 @@
     var audioSource = document.createElement("source");
     audioSource.setAttribute("type", "audio/mp3");
     audioSource.setAttribute("src", "https://crystaliser.github.io/song.mp3")
+    audioTrack.setAttribute("autoplay", "false");
+    audioTrack.setAttribute("x-webkit-airplay", "deny");
+    audioTrack.setAttribute("disablePictureInPicture", "true");
+
     audioTrack.appendChild(audioSource);
 
     var subtitlesTrack = document.createElement("track");
@@ -1141,7 +1158,6 @@
     subtitlesTrack.setAttribute("src", "https://crystaliser.github.io/subtitles.vtt");
 
     audioTrack.setAttribute("crossorigin", "anonymous");
-    audioTrack.setAttribute("disablePictureInPicture", "true");
 
 
     console.log("Subtitles", subtitlesTrack);
@@ -1172,15 +1188,22 @@
             console.log("Playing new verse", currentVerse);
             verseDropdown.value = currentVerse;
             let i = 0;
+
             for (i = 0; i < songTwo[currentVerse].length; i++) {
                 crystaliseBeat(currentVerse, songTwo[currentVerse][i], i);
                 console.log(currentVerse, i);
 
             }
             verses = localStorage.getItem("verses");
-            if (parseFloat(currentVerse) === verses) {
+            console.log(parseFloat(currentVerse), parseFloat(verses));
+            if (parseFloat(currentVerse) > parseFloat(verses) - 1) {
+                console.log("Reached end, stopping");
                 clearInterval(playingInterval);
                 stop();
+                return;
+
+            } else {
+                console.log("Carrying on playing");
             }
         }
         playButton.style.display = "none";
