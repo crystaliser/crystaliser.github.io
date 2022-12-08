@@ -1203,7 +1203,7 @@
                 console.log(currentVerse, i);
 
             }
-            verses = localStorage.getItem("verses") - 1;
+            verses = localStorage.getItem("verses");
             if (parseFloat(currentVerse) === verses) {
                 clearInterval(playingInterval);
                 stop();
