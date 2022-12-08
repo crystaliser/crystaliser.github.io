@@ -775,6 +775,16 @@
         font-weight: 500;
         color: var(--oohColour);
     }
+
+    ::cue(b.lineShouts) {
+        font-weight: 500;
+        color: var(--shoutColour);
+    }
+
+    ::cue(b.lineLaughs) {
+        font-weight: 500;
+        color: var(--laughColour);
+    }
 </style>
 <script src="papaparse.js"></script>
 <script>
@@ -1255,8 +1265,6 @@
         subtitlesOffButton.style.display = "none";
         console.log("Turned off subtitles");
     }
-    var statusElem = document.getElementById("wake");
-
     let wakeLock = null;
     async function keepAwake() {
         if ('wakeLock' in navigator) {
