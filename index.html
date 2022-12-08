@@ -1604,6 +1604,7 @@
     function stop() {
         console.log("Stopping playing")
         clearInterval(playingInterval);
+        clearInterval(overlayInterval);
         console.log("Stopped playing");
         playButton.style.display = "initial";
         stopButton.style.display = "none";
