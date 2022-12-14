@@ -1169,6 +1169,38 @@
         font-weight: 500;
         color: var(--laughColour);
     }
+
+    @media (orientation:portrait) {
+        .diamondsArea {
+
+            flex-direction: column;
+        }
+
+        main svg#Layer1,
+        main svg#Layer2 {
+            max-height: 100vw;
+            max-width: 100vw;
+
+
+        }
+
+
+
+    }
+
+    @media (orientation:landscape) {
+        .diamondsArea {
+            flex-direction: row;
+        }
+
+        main svg#Layer1,
+        main svg#Layer2 {
+            max-height: 100vh;
+            max-width: 100vh;
+
+
+        }
+    }
 </style>
 <script src="papaparse.js"></script>
 <script>
